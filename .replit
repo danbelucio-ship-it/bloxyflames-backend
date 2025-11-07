@@ -1,21 +1,21 @@
-entrypoint = "index.js"
-modules = ["nodejs-22"]
-hidden = [".config", "package-lock.json"]
+run = "npm start"
+entrypoint = "server.js"
+language = "nodejs"
+modules = ["nodejs-20"]
 
-[gitHubImport]
-requiredFiles = [".replit", "replit.nix", "package.json", "package-lock.json"]
+[env]
+PORT = "3000"
 
-[nix]
-channel = "stable-24_11"
+[[ports]]
+localPort = 3000
+externalPort = 80
 
 [deployment]
-run = ["node", "index.js"]
-deploymentTarget = "autoscale"
-ignorePorts = false
+deploymentTarget = "gce"
+run = ["sh", "-c", "npm start"]
 
 [agent]
 expertMode = true
 
-[[ports]]
-localPort = 5000
-externalPort = 80
+[nix]
+packages = ["unzip"]
